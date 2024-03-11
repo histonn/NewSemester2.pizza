@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 app = Flask(__name__)
 
 test_name = "Python project"
@@ -45,16 +45,31 @@ def portfolio():
 
 @app.route('/')
 def index():
-    return render_template('base.html', title='Jinja_Test')
+    return render_template('login.html', title='Jinja_Test')
 
 
+@app.route('/process_login', methods=['POST'])
+def process_login():
+ #   global username, password
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+    return render_template('welcome.html', username=username, password=password)
 
 
+#@app.route('/admin')
+#def admin():
+ #   return render_template('admin.html', title='Jinja_Test')
 
 
+@app.route('/order_place', methods=['POST'])
+def admin():
+    return render_template('order.html', title='Jinja_Test')
 
 
-
+@app.route('/ordered', methods=['POST'])
+def ordered():
+    return render_template('resultPizza.html', title='Jinja_Test')
 
 
 
